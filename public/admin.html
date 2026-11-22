@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="referrer" content="no-referrer" />
+    <meta name="theme-color" content="#126b4e" />
+    <title>Private editor — Sai Balaji</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <script type="module" src="js/admin.js"></script>
+  </head>
+  <body class="admin-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <a class="wordmark" href="index.html#home" aria-label="Sai Balaji, home">SBN<span>—</span></a>
+      <span class="admin-header-label mono">PRIVATE EDITOR</span>
+      <a class="header-note" href="index.html#journal">BACK TO SITE <span>↗</span></a>
+    </header>
+    <main id="main" class="admin-main">
+      <section id="login-panel" class="admin-login section-paper" aria-labelledby="admin-title">
+        <p class="mono">OWNER ACCESS / SUPABASE AUTH</p>
+        <h1 id="admin-title" class="display-heading">THE<br /><em>LOGBOOK.</em></h1>
+        <p>Sign in with the owner account enabled in Supabase. This page has no public registration.</p>
+        <noscript><p>Enable JavaScript to use the private editor. Sign-in fields stay disabled without it.</p></noscript>
+        <form id="login-form" class="admin-form" method="post" action="/admin.html">
+          <label for="admin-email">EMAIL</label>
+          <input id="admin-email" name="email" type="email" autocomplete="username" required maxlength="254" disabled />
+          <label for="admin-password">PASSWORD</label>
+          <input id="admin-password" name="password" type="password" autocomplete="current-password" required maxlength="128" disabled />
+          <button class="admin-button" type="submit" disabled>SIGN IN <span aria-hidden="true">↗</span></button>
+        </form>
+        <p id="login-status" class="admin-status mono" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="editor-panel" class="admin-editor section-paper" aria-labelledby="editor-title" hidden>
+        <div class="admin-editor-head">
+          <div><p class="mono">OWNER ACCESS / ENGINEERING JOURNAL</p><h1 id="editor-title" class="display-heading">WRITE<br /><em>IT DOWN.</em></h1></div>
+          <button id="sign-out" class="admin-secondary" type="button">SIGN OUT</button>
+        </div>
+        <div class="admin-layout">
+          <aside class="admin-entry-list" aria-label="Saved journal entries">
+            <div class="admin-list-head"><h2 class="mono">SAVED ENTRIES</h2><button id="new-entry" class="admin-secondary" type="button">+ NEW</button></div>
+            <p id="entries-empty" class="mono">NO ENTRIES YET.</p>
+            <div id="entries-list" class="admin-entry-buttons"></div>
+          </aside>
+          <form id="article-form" class="admin-form admin-article-form">
+            <input id="article-id" name="id" type="hidden" />
+            <label for="article-title">TITLE</label>
+            <input id="article-title" name="title" required maxlength="240" />
+            <label for="article-slug">URL SLUG</label>
+            <input id="article-slug" name="slug" required maxlength="120" pattern="[a-z0-9]+(-[a-z0-9]+)*" autocomplete="off" />
+            <label for="article-category">CATEGORY</label>
+            <input id="article-category" name="category" required maxlength="100" value="Build notes" />
+            <label for="article-intro">SHORT INTRO</label>
+            <textarea id="article-intro" name="intro" rows="3" required maxlength="4000"></textarea>
+            <label for="article-body">BODY</label>
+            <textarea id="article-body" name="body" rows="16" placeholder="# A heading&#10;A paragraph. Leave a blank line between paragraphs.&#10;&#10;- A list item&#10;&#10;```&#10;code goes here&#10;```&#10;&#10;| Part | Purpose |&#10;| --- | --- |&#10;| Sensor | Measurement |&#10;&#10;![Alt text](https://raw.githubusercontent.com/.../image.png)" spellcheck="true"></textarea>
+            <p class="admin-help">Plain text with blank lines, <code># headings</code>, <code>- list items</code>, fenced code, pipe tables, and HTTPS images from Supabase Storage or GitHub raw.</p>
+            <label class="admin-publish-option" for="article-published"><input id="article-published" name="published" type="checkbox" /> PUBLISH THIS ENTRY</label>
+            <button id="save-entry" class="admin-button" type="submit">SAVE ENTRY <span aria-hidden="true">↗</span></button>
+            <p id="editor-status" class="admin-status mono" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer section-green compact-footer"><div class="footer-bottom mono"><span>PRIVATE EDITOR</span><span>ONLY DATABASE ADMINS CAN WRITE</span><a href="index.html#home">BACK TO SITE ↑</a></div></footer>
+  </body>
+</html>

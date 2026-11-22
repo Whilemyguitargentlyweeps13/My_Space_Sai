@@ -8,7 +8,7 @@ const slugify = (text) => String(text).toLowerCase().replace(/[^a-z0-9]+/g, "-")
 function safeHttpUrl(value) {
   try {
     const url = new URL(value);
-    return ["http:", "https:"].includes(url.protocol) ? url.href : "";
+    return url.protocol === "https:" ? url.href : "";
   } catch {
     return "";
   }

@@ -8,7 +8,7 @@ function safePublicFiles(project) {
   return (project.files || []).filter((file) => {
     if (file.visibility && file.visibility !== "public") return false;
     try {
-      return ["https:", "http:"].includes(new URL(file.url).protocol);
+      return new URL(file.url).protocol === "https:";
     } catch {
       return false;
     }
