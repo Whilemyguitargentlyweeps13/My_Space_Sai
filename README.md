@@ -20,7 +20,7 @@ Add an object to `public/content/projects.js` with a unique `slug`, `title`, `ca
 
 Add an entry to `public/content/articles.js` with `slug`, `title`, `category`, `date`, `intro`, and a `blocks` array. Link to it with `article.html?id=your-slug`. Supported block types are `heading` (`text`), `paragraph` (`text`), `code` (`code`), `list` (`items`), `image` (`src`, `alt`, optional `caption`), and `table` (`headers`, `rows`). The article template builds a table of contents and estimates reading time from the content.
 
-After Supabase Auth is configured and your user ID is in `portfolio_admins`, use `/admin.html` to sign in and manage journal entries. There is no public sign-up form; database RLS remains the final write-access check.
+After Supabase Auth is configured and your user ID is in `portfolio_admins`, use `/admin.html` to sign in and manage journal entries. The editor supports headings, bold, italic, underline, lists, links, and image/video uploads. Each save also writes a private `.txt` copy to Supabase Storage. There is no public sign-up form; database and Storage RLS remain the final write-access checks.
 
 ## Update your profile
 
@@ -36,7 +36,7 @@ Commit the portfolio to a GitHub repository and import that repository into Verc
 
 ## Supabase content storage
 
-The initial schema is in `supabase/migrations/20261122_initial_schema.sql`. It keeps project/blog text and file references in Postgres; binary files stay in GitHub or object storage. The `/api/projects` and `/api/articles` routes read published records when Supabase is configured, and the site falls back to local content otherwise. See `supabase/README.md` for setup notes.
+The initial schema is in `supabase/migrations/20261122_initial_schema.sql`; the journal Storage buckets and access policies are in `supabase/migrations/20261122_journal_editor_storage.sql`. The `/api/projects` and `/api/articles` routes read published records when Supabase is configured, and the site falls back to local content otherwise. See `supabase/README.md` for setup notes.
 
 ## Security
 

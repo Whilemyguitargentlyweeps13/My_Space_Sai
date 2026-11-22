@@ -72,41 +72,53 @@ loadPublishedProjects();
 
 const menuToggle = document.querySelector(".menu-toggle");
 const nav = document.querySelector("#site-nav");
+const pages = [...document.querySelectorAll("main [data-page]")];
+
+function closeMenu() {
+  menuToggle?.setAttribute("aria-expanded", "false");
+  menuToggle?.setAttribute("aria-label", "Open navigation");
+  nav?.classList.remove("is-open");
+}
+
+function showPageFromHash() {
+  const requestedId = location.hash.slice(1);
+  const activePage = pages.find((page) => page.id === requestedId) || pages[0];
+  for (const page of pages) page.hidden = page !== activePage;
+  document.querySelectorAll("[data-nav]").forEach((link) => {
+    if (link.getAttribute("href") === `#${activePage.id}`) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  });
+  closeMenu();
+  window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+}
+
 menuToggle?.addEventListener("click", () => {
   const open = menuToggle.getAttribute("aria-expanded") !== "true";
   menuToggle.setAttribute("aria-expanded", String(open));
   menuToggle.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
   nav.classList.toggle("is-open", open);
 });
-nav?.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => {
-  menuToggle.setAttribute("aria-expanded", "false");
-  menuToggle.setAttribute("aria-label", "Open navigation");
-  nav.classList.remove("is-open");
+
+document.querySelectorAll("[data-nav]").forEach((link) => link.addEventListener("click", () => {
+  if (link.hash && link.hash === location.hash) showPageFromHash();
+  else closeMenu();
 }));
+window.addEventListener("hashchange", showPageFromHash);
+showPageFromHash();
 
-const observed = document.querySelectorAll("main section[id]");
-if ("IntersectionObserver" in window) {
-  const sectionObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue;
-      document.querySelectorAll("[data-nav]").forEach((link) => {
-        if (link.getAttribute("href") === `#${entry.target.id}`) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      });
-    }
-  }, { rootMargin: "-35% 0px -55% 0px" });
-  observed.forEach((section) => sectionObserver.observe(section));
-}
-
-document.querySelector("#year").textContent = new Date().getFullYear();
+const year = document.querySelector("#year");
+if (year) year.textContent = new Date().getFullYear();
 
 function renderArticles(entries) {
-  if (!entries.length) return;
   const empty = document.querySelector(".journal-empty");
+  if (!entries.length) {
+    empty.innerHTML = `<span class="journal-symbol" aria-hidden="true">✳</span><p class="mono">NO NOTES PUBLISHED YET.</p><p>The next entry will appear here when it’s ready to share.</p>`;
+    return;
+  }
   empty.innerHTML = entries.map((article) => `<a class="journal-entry" href="article.html?id=${encodeURIComponent(article.slug)}"><span class="mono">${escapeHtml(article.category)} · ${escapeHtml(article.date)}</span><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.intro)}</span></a>`).join("");
 }
 renderArticles(articles);
 fetch("/api/articles", { headers: { Accept: "application/json" } })
   .then((response) => response.ok ? response.json() : null)
-  .then((remoteArticles) => { if (Array.isArray(remoteArticles) && remoteArticles.length) renderArticles(remoteArticles); })
+  .then((remoteArticles) => { if (Array.isArray(remoteArticles)) renderArticles(remoteArticles); })
   .catch(() => {});

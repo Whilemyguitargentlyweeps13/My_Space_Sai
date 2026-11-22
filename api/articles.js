@@ -7,6 +7,7 @@ function normalizeBlock(block) {
   if (["heading", "paragraph"].includes(block.type)) {
     return { type: block.type, text: asText(block.text, block.type === "heading" ? 240 : 10000) };
   }
+  if (block.type === "rich") return { type: "rich", html: asText(block.html, 20000) };
   if (block.type === "code") return { type: "code", code: asText(block.code, 20000) };
   if (block.type === "list") {
     return {
@@ -27,6 +28,14 @@ function normalizeBlock(block) {
       if (url.protocol === "https:" && allowedHost) src = url.href;
     } catch {}
     return src ? { type: "image", src, alt: asText(block.alt, 500), caption: asText(block.caption, 1000) } : null;
+  }
+  if (block.type === "video") {
+    let src = "";
+    try {
+      const url = new URL(block.src);
+      if (url.protocol === "https:" && url.hostname.endsWith(".supabase.co")) src = url.href;
+    } catch {}
+    return src ? { type: "video", src, caption: asText(block.caption, 1000) } : null;
   }
   if (block.type === "table") {
     const headers = Array.isArray(block.headers)
