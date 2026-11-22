@@ -112,7 +112,7 @@ if (year) year.textContent = new Date().getFullYear();
 function renderArticles(entries) {
   const empty = document.querySelector(".journal-empty");
   if (!entries.length) {
-    empty.innerHTML = `<span class="journal-symbol" aria-hidden="true">✳</span><p class="mono">NO NOTES PUBLISHED YET.</p><p>The next entry will appear here when it’s ready to share.</p>`;
+    empty.innerHTML = `<span class="journal-symbol" aria-hidden="true">✳</span><p class="mono">NO NOTES PUBLISHED YET.</p><p>Your posts will appear here when you publish them.</p><a class="text-link" href="/admin.html">OPEN THE PRIVATE EDITOR <span aria-hidden="true">↗</span></a>`;
     return;
   }
   empty.innerHTML = entries.map((article) => `<a class="journal-entry" href="article.html?id=${encodeURIComponent(article.slug)}"><span class="mono">${escapeHtml(article.category)} · ${escapeHtml(article.date)}</span><strong>${escapeHtml(article.title)}</strong><span>${escapeHtml(article.intro)}</span></a>`).join("");

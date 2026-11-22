@@ -64,10 +64,10 @@ main [data-page]:not([hidden]){animation:page-in .28s ease both}
 .site-nav{gap:clamp(10px,1.6vw,24px)}
 .site-nav a{font-size:clamp(.62rem,.76vw,.76rem);white-space:nowrap}
 .site-nav a[aria-current="page"]{color:var(--green)}
-.home-page{height:calc(100svh - var(--header-h));min-height:420px;padding:0;background:var(--orange);display:grid;place-items:center;overflow:hidden}
-.home-workspace-image{width:100%;height:100%;object-fit:contain;object-position:center}
 .page-section{min-height:calc(100svh - var(--header-h));}
 .about-quote{max-width:980px;margin:clamp(45px,8vw,110px) auto 0;padding-left:22px;border-left:3px solid var(--orange);font:clamp(1.5rem,3.4vw,3.4rem)/1.08 var(--display);letter-spacing:-.035em}
+.journal-write-link{margin-top:24px}
+.journal-empty .text-link{margin-top:22px}
 .contact-page{min-height:calc(100svh - var(--header-h));padding:clamp(38px,6vw,85px) var(--gutter) 20px;display:flex;flex-direction:column}
 .contact-layout{flex:1;display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,8vw,120px);align-items:center;padding:clamp(55px,9vw,130px) 0}
 .contact-eyebrow{color:var(--orange);font-size:.65rem}
@@ -86,5 +86,5 @@ main [data-page]:not([hidden]){animation:page-in .28s ease both}
 .article-body video{display:block;width:100%;height:auto;max-height:75vh;background:var(--ink);margin:2.4em 0}
 .article-body figure video{margin:0}
 @media(max-width:900px){.site-nav{gap:13px}.site-nav a{font-size:.62rem}.contact-layout{grid-template-columns:1fr;align-content:center;gap:30px}.contact-name{font-size:clamp(4rem,12vw,7rem)}.contact-note{margin-bottom:0}.contact-links{max-width:700px;width:100%}}
-@media(max-width:620px){.home-page{min-height:calc(100svh - var(--header-h))}.home-workspace-image{object-fit:contain}.contact-page{padding-top:30px}.contact-layout{padding:50px 0;gap:25px}.contact-name{font-size:clamp(3.3rem,15vw,5.5rem);margin:23px 0}.contact-bottom{flex-wrap:wrap;font-size:.52rem}.contact-bottom span:first-child{width:100%}.contact-links>a,.contact-link-pending{padding:17px 0}.contact-links strong{font-size:.9rem}}
+@media(max-width:620px){.contact-page{padding-top:30px}.contact-layout{padding:50px 0;gap:25px}.contact-name{font-size:clamp(3.3rem,15vw,5.5rem);margin:23px 0}.contact-bottom{flex-wrap:wrap;font-size:.52rem}.contact-bottom span:first-child{width:100%}.contact-links>a,.contact-link-pending{padding:17px 0}.contact-links strong{font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){main [data-page]:not([hidden]){animation:none}}
