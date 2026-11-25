@@ -58,6 +58,11 @@
 @media(max-width:620px){.project-files{padding:60px var(--gutter)}.project-file-link{grid-template-columns:1fr 24px;gap:5px 12px}.project-file-link .mono{grid-column:1}.project-file-link strong{grid-column:1;font-size:1.3rem}.project-file-link>span:last-child{grid-column:2;grid-row:1 / span 2}}
 
 /* Page-by-page portfolio navigation */
+.workspace-frame#workspace-stage{width:min(82%,900px);aspect-ratio:1590/987;overflow:hidden;background:radial-gradient(ellipse at 52% 48%,#ff8730 0,#f56411 62%,#df4906 100%);cursor:grab;touch-action:pan-y}
+.workspace-frame#workspace-stage:active{cursor:grabbing}
+.workspace-frame#workspace-stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.workspace-frame#workspace-stage img.workspace-fallback{position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:contain;transition:opacity .35s ease}
+.workspace-frame#workspace-stage.scene-ready img.workspace-fallback{opacity:0;visibility:hidden}
 main [data-page][hidden]{display:none!important}
 main [data-page]:not([hidden]){animation:page-in .28s ease both}
 @keyframes page-in{from{opacity:.35;transform:translateX(10px)}to{opacity:1;transform:translateX(0)}}
@@ -88,3 +93,4 @@ main [data-page]:not([hidden]){animation:page-in .28s ease both}
 @media(max-width:900px){.site-nav{gap:13px}.site-nav a{font-size:.62rem}.contact-layout{grid-template-columns:1fr;align-content:center;gap:30px}.contact-name{font-size:clamp(4rem,12vw,7rem)}.contact-note{margin-bottom:0}.contact-links{max-width:700px;width:100%}}
 @media(max-width:620px){.contact-page{padding-top:30px}.contact-layout{padding:50px 0;gap:25px}.contact-name{font-size:clamp(3.3rem,15vw,5.5rem);margin:23px 0}.contact-bottom{flex-wrap:wrap;font-size:.52rem}.contact-bottom span:first-child{width:100%}.contact-links>a,.contact-link-pending{padding:17px 0}.contact-links strong{font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){main [data-page]:not([hidden]){animation:none}}
+@media(max-width:620px){.workspace-frame#workspace-stage{width:96%}}
